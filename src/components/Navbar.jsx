@@ -1,5 +1,5 @@
 import logo from "../assets/HenokSisayLogo.png";
-import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaTelegramPlane, FaInstagram, FaTwitter } from "react-icons/fa"; // Added FaTwitter
 
 const Navbar = () => {
   return (
@@ -19,6 +19,9 @@ const Navbar = () => {
         </a>
         <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
           <FaInstagram className="hover:text-pink-600" />
+        </a>
+        <a href="https://t.me/yourtelegram" target="_blank" rel="noopener noreferrer">
+          <FaTelegramPlane className="hover:text-blue-400" />
         </a>
       </div>
     </nav>
