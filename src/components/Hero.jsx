@@ -1,5 +1,6 @@
 import { HERO_CONTENT } from "../constants";
 import profilepic from '../assets/Batman.jpg';
+import scroll from '../assets/scroll.png';
 import { motion } from "framer-motion";
 
 const container = (delay) => ({
@@ -10,6 +11,28 @@ const container = (delay) => ({
     transition: {duration: 0.5, delay: delay },
   },
 });
+const textVariants = {
+  initial: {
+    x: -500,
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 1,
+      staggerChildren: 0.1,
+    },
+  },
+  scrollButton: {
+    opacity: 0,
+    y: 10,
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+    },
+  },
+};
 
 
 const Hero = () => {
@@ -52,7 +75,14 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
+      <div className="w-full flex justify-center">
+        <motion.img
+            variants={textVariants}
+            animate="scrollButton"
+            src={scroll}
+            alt=""
+          />
+        </div>
     </div>
   )
 }
