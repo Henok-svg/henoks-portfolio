@@ -14,7 +14,7 @@ const Navbar = () => {
         <a href="https://github.com/Henok-svg" target="_blank" rel="noopener noreferrer">
           <FaGithub className="hover:text-gray-900" />
         </a>
-        <a href="https://www.instagram.com/hen.undertones" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.instagram.com/dazed.in.void" target="_blank" rel="noopener noreferrer">
           <FaInstagram className="hover:text-pink-600" />
         </a>
         <a href="https://t.me/Wikihen" target="_blank" rel="noopener noreferrer">
