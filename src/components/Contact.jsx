@@ -178,9 +178,7 @@ const Contact = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center mt-16 pt-8 border-t border-gray-200"
         >
-          <p className="text-gray-600">
-            Built with <span className="text-red-500">♥</span>
-          </p>
+          
         </motion.div>
       </div>
     </section>
