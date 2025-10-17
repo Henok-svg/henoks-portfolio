@@ -1,7 +1,8 @@
 import { HERO_CONTENT } from "../constants";
-import profilepic from '../assets/Batman.jpg';
-import scroll from '../assets/scroll.png';
+import profilepic from '../assets/Photo.jpg';
 import { motion } from "framer-motion";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Typewriter from "./Typewriter";
 
 const container = (delay) => ({
   hidden: {x: -100, opacity: 0},
@@ -11,79 +12,99 @@ const container = (delay) => ({
     transition: {duration: 0.5, delay: delay },
   },
 });
-const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
-  },
-  scrollButton: {
-    opacity: 0,
-    y: 10,
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-    },
-  },
-};
-
 
 const Hero = () => {
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className='border-b border-neutral-900 pb-4 lg:mb-35'>
-      <div className='flex flex-wrap'>
-        <div className='w-full lg:w-1/2' >
-          <div className='flex flex-col items-center lg:items-start '>
-            <motion.h1   
-              variants={container(0)}
+    <section id="home" className="min-h-screen flex items-center justify-center bg-white dark:bg-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Text Content */}
+          <motion.div
+            variants={container(0)}
+            initial="hidden"
+            animate="visible"
+            className="text-center lg:text-left"
+          >
+            <motion.h1
+              variants={container(0.2)}
               initial="hidden"
               animate="visible"
-              className='pb-16 text-5xl font-thin tracking-tight lg:mt-16 lg:text-8xl'
-            ><b>Henok Sisay</b>
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6"
+            >
+              Hey there, I'm{' '}
+              <span className="text-blue-600 dark:text-blue-400">Henok</span>
             </motion.h1>
-            <motion.span
+            
+            <motion.div
+              variants={container(0.3)}
+              initial="hidden"
+              animate="visible"
+              className="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 mb-8 h-12 flex items-center"
+            >
+              I'm a {'  '}
+              <Typewriter 
+                texts={[" Full Stack Developer", " React Developer", " Node.js Developer", " Problem Solver"]}
+                speed={100}
+                delay={2000}
+              />
+            </motion.div>
+            
+            <motion.p
               variants={container(0.4)}
               initial="hidden"
               animate="visible"
-              className='bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-3xl tracking-tight text-transparent'
-            >Full Stack Developer
-            </motion.span>
-            <motion.p
-              variants={container(0.8)}
+              className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl"
+            >
+              {HERO_CONTENT}
+            </motion.p>
+            
+            <motion.div
+              variants={container(0.6)}
               initial="hidden"
               animate="visible"
-              className="my-2 max-w-xl py-6 font-light tracking-tighter"
-            >{HERO_CONTENT}
-            </motion.p>
-          </div>
-        </div>
-        <div className="w-full lg:w-1/2 lg:p-8">
-          <div className="flex justify-center">
-            <motion.img
-              initial={{ x: 100 , opacity: 0}}
-              animate={{ x: 0 , opacity: 1}}
-              transition={{duration: 1, delay:1}}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <button
+                onClick={() => scrollToSection('projects')}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
+              >
+                View My Projects
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
+              >
+                Contact Me
+              </button>
+            </motion.div>
+          </motion.div>
 
-              src={profilepic} alt="" />
-          </div>
+          {/* Right Column - Profile Image */}
+          <motion.div
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="flex justify-center lg:justify-end"
+          >
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-20"></div>
+              <img
+                src={profilepic}
+                alt="Henok Sisay"
+                className="relative w-80 h-80 object-cover rounded-full shadow-2xl"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
-      <div className="w-full flex justify-center">
-        <motion.img
-            variants={textVariants}
-            animate="scrollButton"
-            src={scroll}
-            alt=""
-          />
-        </div>
-    </div>
+    </section>
   )
 }
 

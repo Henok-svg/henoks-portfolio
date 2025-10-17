@@ -1,17 +1,14 @@
 import { CONTACT } from "../constants";
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-
-
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Contact = () => {
-  const ref = useRef();
   const formRef = useRef();
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-
-  const isInView = useInView(ref, { margin: "-100px" });
+  const [message, setMessage] = useState("");
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -24,112 +21,169 @@ const Contact = () => {
       )
       .then(
         (result) => {
-          setSuccess(true)
+          setSuccess(true);
+          setMessage("");
+          setTimeout(() => setSuccess(false), 3000);
         },
         (error) => {
           setError(true);
+          setTimeout(() => setError(false), 3000);
         }
       );
   };
 
-
   return (
-    <div className="border-b border-neutral-900 pb-20">
+    <section id="contact" className="py-20 bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
-          whileInView={{y: 0, opacity: 1}}
-          initial ={{y: -100, opacity: 0}}
-          transition={{ duration: 1.5}} className="text-center text-4xl mb-10">Let’s work together</motion.h2>
-        <div className="flex flex-col lg:flex-row gap-10 items-center">
-         <div className="text-center lg:text-left  lg:w-1/2">
-            <motion.p
-             whileInView={{x: 0, opacity: 1}}
-             initial ={{x: -100, opacity: 0}}
-             transition={{ duration: 1.5}}
-             className="my-6">{CONTACT.address}</motion.p>
-            <motion.p
-             whileInView={{x: 0, opacity: 1}}
-             initial ={{x: -100, opacity: 0}}
-             transition={{ duration: 1.5}}
-             className="my-6">{CONTACT.phoneNo}</motion.p>
-            <a href="mailto:admassuhenok123@gmail.com" className="my-6 border-b">{CONTACT.email}</a>
-         </div>
-         <div className="relative lg:w-1/2">
-         <motion.div
-          className="absolute inset-0 m-auto -z-10 text-orange-500"
-          initial={{ opacity: 1 }}
-          whileInView={{ opacity: 0 }}
-          transition={{ delay: 3, duration: 1 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          initial={{ y: -50, opacity: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-16"
         >
-          <svg
-            className="w-[300px] h-[300px] mx-auto"
-            viewBox="0 0 32.666 32.666"
+          Contact Me
+        </motion.h2>
+        
+        <div className="max-w-4xl mx-auto">
+          <motion.p
+            whileInView={{ y: 0, opacity: 1 }}
+            initial={{ y: 20, opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center text-lg text-gray-600 dark:text-gray-300 mb-12"
           >
+            Have a question, a project idea, or just want to connect? Fill out the form below.
+          </motion.p>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Info */}
+            <motion.div
+              whileInView={{ x: 0, opacity: 1 }}
+              initial={{ x: -50, opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
+            >
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Get in touch</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{CONTACT.address}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{CONTACT.phoneNo}</p>
+                <a 
+                  href="mailto:admassuhenok123@gmail.com" 
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                >
+                  {CONTACT.email}
+                </a>
+              </div>
+              
+              <div className="flex space-x-4">
+                <a
+                  href="https://github.com/Henok-svg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                >
+                  <FaGithub className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/henok-sisay-3647ab295"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  <FaLinkedin className="h-6 w-6" />
+                </a>
+              </div>
+            </motion.div>
 
-            <motion.path
-              strokeWidth={0.2}
-              fill="purple"
-              initial={{ pathLength: 0 }}
-              animate={ isInView && { pathLength: 1 }}
-              transition={{ duration: 3 }}
-              d="M28.189,16.504h-1.666c0-5.437-4.422-9.858-9.856-9.858l-0.001-1.664C23.021,4.979,28.189,10.149,28.189,16.504z
-            M16.666,7.856L16.665,9.52c3.853,0,6.983,3.133,6.981,6.983l1.666-0.001C25.312,11.735,21.436,7.856,16.666,7.856z M16.333,0
-            C7.326,0,0,7.326,0,16.334c0,9.006,7.326,16.332,16.333,16.332c0.557,0,1.007-0.45,1.007-1.006c0-0.559-0.45-1.01-1.007-1.01
-            c-7.896,0-14.318-6.424-14.318-14.316c0-7.896,6.422-14.319,14.318-14.319c7.896,0,14.317,6.424,14.317,14.319
-            c0,3.299-1.756,6.568-4.269,7.954c-0.913,0.502-1.903,0.751-2.959,0.761c0.634-0.377,1.183-0.887,1.591-1.529
-            c0.08-0.121,0.186-0.228,0.238-0.359c0.328-0.789,0.357-1.684,0.555-2.518c0.243-1.064-4.658-3.143-5.084-1.814
-            c-0.154,0.492-0.39,2.048-0.699,2.458c-0.275,0.366-0.953,0.192-1.377-0.168c-1.117-0.952-2.364-2.351-3.458-3.457l0.002-0.001
-            c-0.028-0.029-0.062-0.061-0.092-0.092c-0.031-0.029-0.062-0.062-0.093-0.092v0.002c-1.106-1.096-2.506-2.34-3.457-3.459
-            c-0.36-0.424-0.534-1.102-0.168-1.377c0.41-0.311,1.966-0.543,2.458-0.699c1.326-0.424-0.75-5.328-1.816-5.084
-            c-0.832,0.195-1.727,0.227-2.516,0.553c-0.134,0.057-0.238,0.16-0.359,0.24c-2.799,1.774-3.16,6.082-0.428,9.292
-            c1.041,1.228,2.127,2.416,3.245,3.576l-0.006,0.004c0.031,0.031,0.063,0.06,0.095,0.09c0.03,0.031,0.059,0.062,0.088,0.095
-            l0.006-0.006c1.16,1.118,2.535,2.765,4.769,4.255c4.703,3.141,8.312,2.264,10.438,1.098c3.67-2.021,5.312-6.338,5.312-9.719
-            C32.666,7.326,25.339,0,16.333,0z"
-            />
-          </svg>
-        </motion.div>
-
-        {/* Form */}
-        <motion.form
-          ref={formRef}
-          onSubmit={sendEmail}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 4, duration: 1 }}
-          className="flex flex-col gap-4 bg-gray-900 p-6 rounded-lg shadow-md text-white"
-        >
-          <input
-            type="text"
-            required
-            placeholder="Name"
-            name="name"
-            className="p-2 bg-transparent border border-white rounded focus:outline-none focus:ring focus:ring-purple-500"
-          />
-          <input
-            type="email"
-            required
-            placeholder="Email"
-            name="email"
-            className="p-2 bg-transparent border border-white rounded focus:outline-none focus:ring focus:ring-purple-500"
-          />
-          <textarea
-            rows={8}
-            placeholder="Message"
-            name="message"
-            className="p-2 bg-transparent border border-white rounded focus:outline-none focus:ring focus:ring-purple-500"
-          />
-          <button
-            type="submit"
-            className="py-2 bg-purple-500 rounded font-semibold hover:bg-purple-600"
-          >
-            Submit
-          </button>
-          {error && <p className="text-red-500">Error sending message</p>}
-          {success && <p className="text-green-500">Message sent successfully</p>}
-        </motion.form>
-         </div>
+            {/* Contact Form */}
+            <motion.form
+              ref={formRef}
+              onSubmit={sendEmail}
+              whileInView={{ x: 0, opacity: 1 }}
+              initial={{ x: 50, opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
+            >
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  placeholder="Your name"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  required
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
+                  placeholder="Your message should be between 10 and 500 characters."
+                />
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  {message.length}/500 characters
+                </p>
+              </div>
+              
+              <button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+              >
+                Send Message
+              </button>
+              
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                  Error sending message. Please try again.
+                </div>
+              )}
+              
+              {success && (
+                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+                  Message sent successfully!
+                </div>
+              )}
+            </motion.form>
+          </div>
         </div>
         
-    </div>
+        <motion.div
+          whileInView={{ y: 0, opacity: 1 }}
+          initial={{ y: 20, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-center mt-16 pt-8 border-t border-gray-200"
+        >
+          <p className="text-gray-600">
+            Built with <span className="text-red-500">♥</span>
+          </p>
+        </motion.div>
+      </div>
+    </section>
   )
 }
 
